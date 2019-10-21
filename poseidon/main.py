@@ -681,7 +681,7 @@ class Monitor(object):
                     else:
                         ret_val = {}
                         break
-        self.logger.debug('decider retval: {0}'.format(ret_val))    
+            self.logger.debug('decider retval: {0}'.format(ret_val))    
         elif routing_key == 'poseidon.action.ignore':
             for name in my_obj:
                 endpoint = self.s.endpoints.get(name, None)
