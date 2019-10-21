@@ -769,12 +769,14 @@ class Monitor(object):
             elif found_work:
                 msg = self.format_rabbit_message(item)
                 self.logger.debug('decider_ output: {0}'.format(json.dumps(msg)))
-                if 'data' in msg:
-                    ml_returns = msg['data']
-                if ml_returns:
-                    self.logger.info(
-                        'ML results: {0}'.format(ml_returns))
-                extras = deepcopy(ml_returns)
+                extras ={}
+                for key in msg:
+                    if 'data' in msg[key]:
+                        ml_returns = msg[key]['data']
+                    if ml_returns:
+                        self.logger.info(
+                            'ML results: {0}'.format(ml_returns))
+                    extras[key] = deepcopy(ml_returns)
                 # process results from ml output and update impacted endpoints
                 for ep in self.s.endpoints.values():
                     if ep.name in ml_returns:
