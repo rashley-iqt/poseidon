@@ -668,7 +668,7 @@ class Monitor(object):
             for name, message in my_obj.items():
                 self.logger.debug('decider iteration name: {0}, message: {1}'.format(name, message))
                 endpoint = self.s.endpoints.get(name, None)
-                self.logger.debug('decider endpoint: {0}'.format(json.dumps(endpoint, indent=2))
+                self.logger.debug('decider endpoint: {0}'.format(json.dumps(endpoint, indent=2)))
                 self.logger.debug('decider plugin: {0}'.format(message.get('plugin', None)))
                 self.logger.debug('decider valid: {0}'.format(message.get('valid', False)))
                 if endpoint and message.get('plugin', None) == 'ncapture':
