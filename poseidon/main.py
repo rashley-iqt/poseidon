@@ -664,25 +664,25 @@ class Monitor(object):
         remove_list = []
 
         if routing_key == 'poseidon.algos.decider':
-            self.logger.debug('decider value:{0}'.format(my_obj))
+            self.logger.debug('decider_ value:{0}'.format(my_obj))
             for name, message in my_obj.items():
-                self.logger.debug('decider iteration name: {0}, message: {1}'.format(name, message))
+                self.logger.debug('decider_ iteration name: {0}, message: {1}'.format(name, message))
                 endpoint = self.s.endpoints.get(name, None)
-                self.logger.debug('decider endpoint: {0}'.format(json.dumps(endpoint, indent=2)))
-                self.logger.debug('decider plugin: {0}'.format(message.get('plugin', None)))
-                self.logger.debug('decider valid: {0}'.format(message.get('valid', False)))
+                self.logger.debug('decider_ endpoint: {0}'.format(json.dumps(endpoint, indent=2)))
+                self.logger.debug('decider_ plugin: {0}'.format(message.get('plugin', None)))
+                self.logger.debug('decider_ valid: {0}'.format(message.get('valid', False)))
                 if endpoint and message.get('plugin', None) == 'ncapture':
                     endpoint.trigger('unknown')
                     endpoint.p_next_state = None
                     endpoint.p_prev_states.append(
                         (endpoint.state, int(time.time())))
                     if message.get('valid', False):
-                        self.logger.debug('decider updating: {0}'.format(message.get('plugin', None)))
+                        self.logger.debug('decider_ updating: {0}'.format(message.get('plugin', None)))
                         ret_val.update(my_obj)
                     else:
                         ret_val = {}
                         break
-            self.logger.debug('decider retval: {0}'.format(ret_val))    
+            self.logger.debug('decider_ retval: {0}'.format(ret_val))    
         elif routing_key == 'poseidon.action.ignore':
             for name in my_obj:
                 endpoint = self.s.endpoints.get(name, None)
@@ -769,7 +769,7 @@ class Monitor(object):
                     'Faucet event: {0}'.format(self.faucet_event))
             elif found_work:
                 msg = self.format_rabbit_message(item)
-                self.logger.debug('decider output: {0}'.format(json.dumps(msg)))
+                self.logger.debug('decider_ output: {0}'.format(json.dumps(msg)))
                 if 'data' in msg:
                     ml_returns = msg['data']
                 if ml_returns:
